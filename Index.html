@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THITAN Halloween</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;color:white;text-align:center;
+background:radial-gradient(circle at top,#522078,#130c24 65%,#08070e);min-height:100vh}
+header{padding:20px 10px}
+h1{font-size:clamp(32px,9vw,52px);margin:5px;color:#ffb52e;text-shadow:0 0 15px #ff5a00}
+header p{margin:8px;color:#eee}
+.game{max-width:650px;margin:auto;padding:12px}
+.stage{position:relative;min-height:390px;border:3px solid #ff9d21;border-radius:22px;
+background:linear-gradient(#24103e,#111827);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.moon{position:absolute;right:25px;top:20px;font-size:55px;filter:drop-shadow(0 0 15px orange)}
+.pumpkin{position:absolute;left:20px;bottom:18px;font-size:48px}
+.bat{position:absolute;top:90px;left:35px;font-size:27px;animation:fly 3s infinite alternate}
+@keyframes fly{to{transform:translate(35px,-15px) rotate(10deg)}}
+.character{position:relative;width:185px;height:285px;display:flex;align-items:center;flex-direction:column;
+animation:bob 2s infinite ease-in-out}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.head{width:105px;height:105px;background:linear-gradient(135deg,#e8e8e8,#747e91);
+border:4px solid #20202a;border-radius:45% 45% 38% 38%;position:relative;z-index:2;
+box-shadow:0 0 15px #aaa}
+.helmet{position:absolute;top:-13px;left:-10px;width:117px;height:45px;
+background:linear-gradient(#ffd34f,#a85b09);border:4px solid #24202c;
+border-radius:55% 55% 15% 15%;z-index:3}
+.helmet:after{content:"";position:absolute;bottom:-10px;left:15px;width:75px;height:9px;background:#e9a42c}
+.eye{position:absolute;top:44px;width:15px;height:19px;border-radius:50%;background:#ff3d29;box-shadow:0 0 10px red}
+.eye.left{left:20px}.eye.right{right:20px}
+.body{width:108px;height:105px;margin-top:-4px;background:linear-gradient(90deg,#333747,#9ca3af,#303443);
+border:4px solid #22212c;border-radius:22px 22px 12px 12px;position:relative}
+.body:after{content:"THITAN";position:absolute;top:39px;left:0;right:0;font-size:15px;font-weight:900;color:#ffca49}
+.arm{position:absolute;top:12px;width:27px;height:85px;background:#737b8a;border:4px solid #252532;border-radius:15px}
+.arm.left{left:-26px;transform:rotate(15deg)}.arm.right{right:-26px;transform:rotate(-18deg)}
+.legs{display:flex;gap:13px}
+.leg{width:37px;height:75px;background:#45495a;border:4px solid #24232e;border-radius:8px}
+.sword{position:absolute;right:-51px;top:45px;width:14px;height:155px;transform:rotate(22deg);z-index:4}
+.blade{height:120px;width:12px;background:linear-gradient(90deg,#fff,#65eaff,#b8f8ff);
+clip-path:polygon(0 0,100% 0,100% 85%,50% 100%,0 85%);filter:drop-shadow(0 0 8px #65eaff)}
+.guard{height:10px;width:35px;margin-left:-11px;background:#ffbf35;border-radius:8px}
+.handle{height:28px;width:9px;margin:auto;background:#63351e;border:2px solid #ffbf35}
+.costumes{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:16px 0}
+.item{border:2px solid #76529b;background:#241739;border-radius:13px;padding:12px 4px;cursor:pointer;
+font-size:30px;touch-action:manipulation}
+.item span{display:block;font-size:12px;margin-top:5px}
+.item:active{transform:scale(.95);border-color:#ffb52e}
+button{background:#ffad24;color:#24112c;font-weight:bold;border:0;border-radius:12px;padding:13px 18px;font-size:16px;margin:5px;cursor:pointer}
+#message{min-height:24px;color:#ffd16a}
+footer{padding:15px;color:#bdb2ce;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<h1>⚔️ THITAN ⚔️</h1>
+<p>🎃 HALLOWEEN · ¡Vestí a tu personaje!</p>
+</header>
+<main class="game">
+<div class="stage" id="stage">
+<div class="moon">🌕</div><div class="bat">🦇</div><div class="pumpkin">🎃</div>
+<div class="character" id="character">
+<div class="head" id="head"><div class="helmet" id="helmet"></div>
+<div class="eye left"></div><div class="eye right"></div></div>
+<div class="body" id="body">
+<div class="arm left"></div><div class="arm right"></div>
+</div>
+<div class="legs"><div class="leg" id="leg1"></div><div class="leg" id="leg2"></div></div>
+<div class="sword"><div class="blade"></div><div class="guard"></div><div class="handle"></div></div>
+</div>
+</div>
+<h3>🧙 Elegí los disfraces</h3>
+<p>Tocá un accesorio para vestir a THITAN.</p>
+<div class="costumes">
+<div class="item" onclick="dress('vampiro')">🧛<span>Vampiro</span></div>
+<div class="item" onclick="dress('bruja')">🧙<span>Mago</span></div>
+<div class="item" onclick="dress('calabaza')">🎃<span>Calabaza</span></div>
+<div class="item" onclick="dress('fantasma')">👻<span>Fantasma</span></div>
+<div class="item" onclick="dress('robot')">🤖<span>Robot</span></div>
+<div class="item" onclick="dress('corona')">👑<span>Rey</span></div>
+<div class="item" onclick="dress('alas')">🦇<span>Alas</span></div>
+<div class="item" onclick="dress('fuego')">🔥<span>Fuego</span></div>
+<div class="item" onclick="dress('escudo')">🛡️<span>Escudo</span></div>
+</div>
+<div id="message">¡Tu aventura comienza!</div>
+<button onclick="resetGame()">🔄 Reiniciar</button>
+</main>
+<footer>THITAN HALLOWEEN · Una aventura de disfraces</footer>
+<script>
+function dress(type){
+const head=document.getElementById('head');
+const body=document.getElementById('body');
+const helmet=document.getElementById('helmet');
+const character=document.getElementById('character');
+head.style.background='linear-gradient(135deg,#e8e8e8,#747e91)';
+body.style.background='linear-gradient(90deg,#333747,#9ca3af,#303443)';
+helmet.style.background='linear-gradient(#ffd34f,#a85b09)';
+character.style.filter='none';
+if(type==='vampiro'){body.style.background='#7d162d';helmet.style.background='#24202c';}
+if(type==='bruja'){helmet.style.background='#5524a5';}
+if(type==='calabaza'){head.style.background='linear-gradient(90deg,#ff781f,#ffc12e)';helmet.style.background='#397b29';}
+if(type==='fantasma'){head.style.background='#fff';body.style.background='#eee';}
+if(type==='robot'){head.style.background='linear-gradient(135deg,#5ce5f3,#5364a2)';body.style.background='#426b9c';}
+if(type==='corona'){helmet.style.background='linear-gradient(#ffe34f,#e6a900)';}
+if(type==='alas'){body.style.background='linear-gradient(90deg,#24202c,#777,#24202c)';}
+if(type==='fuego'){character.style.filter='drop-shadow(0 0 12px #ff4b0b)';}
+if(type==='escudo'){body.style.background='linear-gradient(90deg,#98702d,#ffdc78,#98702d)';}
+document.getElementById('message').textContent='¡THITAN está listo para Halloween! ⚔️';
+}
+function resetGame(){
+document.getElementById('head').style.background='linear-gradient(135deg,#e8e8e8,#747e91)';
+document.getElementById('body').style.background='linear-gradient(90deg,#333747,#9ca3af,#303443)';
+document.getElementById('helmet').style.background='linear-gradient(#ffd34f,#a85b09)';
+document.getElementById('character').style.filter='none';
+document.getElementById('message').textContent='¡Empezá de nuevo!';
+}
+</script>
+</body>
+</html>
